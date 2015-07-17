@@ -18,8 +18,9 @@ public class Game_Controller : MonoBehaviour {
 	IEnumerator EndGameScreen()
 	{
 		yield return new WaitForSeconds(1f);
-		
-		resetPanel.SetActive(true);
+
+		ResetGame();
+		//resetPanel.SetActive(true);
 	}
 
 	public void ResetGame()

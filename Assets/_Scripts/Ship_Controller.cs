@@ -111,9 +111,7 @@ public class Ship_Controller : MonoBehaviour
 			ps2.transform.position = transform.position;
 			ps2.Emit(100);
 
-			Destroy(gameObject);
-			Destroy(crosshair.gameObject);
-
+			//Destroy(gameObject);
 			gc.StartCoroutine("EndGameScreen");
 		}
 
@@ -161,12 +159,12 @@ public class Ship_Controller : MonoBehaviour
 
 		if(Input.GetMouseButtonDown(0) || cardboard.Triggered)
 		{
-			Vector3 shotPosition = transform.position + (crosshair.position - transform.position).normalized*.25f;
+			//Vector3 shotPosition = transform.position + (crosshair.position - transform.position).normalized*.25f;
 
 			//GameObject bullet = (GameObject)Instantiate(bulletPrefab, shotPosition, bulletInitialRotation);
 			GameObject bullet = (GameObject)Instantiate(bulletPrefab, cardboard.gameObject.transform.GetChild(0).position + cardboard.gameObject.transform.GetChild(0).forward*.25f, bulletInitialRotation);
 			bullet.GetComponent<Rigidbody>().AddForce(cardboard.gameObject.transform.GetChild(0).forward*bulletSpeed);
-			bullet.transform.LookAt(cardboard.gameObject.transform.GetChild(0).forward);
+			bullet.transform.rotation = cardboard.HeadPose.Orientation;
 			//bullet.GetComponent<Rigidbody>().AddForce((crosshair.position - shotPosition).normalized*bulletSpeed);
 			//bullet.transform.LookAt(crosshair.position);
 			AudioSource.PlayClipAtPoint(bulletAudioClip, transform.position, .75f);
@@ -213,8 +211,8 @@ public class Ship_Controller : MonoBehaviour
 				StartCoroutine("FlashRed");
 				damageDelayTimer = initialDamageDelayTime;
 				currentHealth -= 5;
-				healthBar.rectTransform.anchoredPosition = new Vector2(healthBar.rectTransform.anchoredPosition.x -(134f*.1f)/2f, healthBar.rectTransform.anchoredPosition.y);
-				healthBar.rectTransform.sizeDelta = new Vector2(healthBar.rectTransform.sizeDelta.x -134f*.1f, healthBar.rectTransform.sizeDelta.y);
+				//healthBar.rectTransform.anchoredPosition = new Vector2(healthBar.rectTransform.anchoredPosition.x -(134f*.1f)/2f, healthBar.rectTransform.anchoredPosition.y);
+				//healthBar.rectTransform.sizeDelta = new Vector2(healthBar.rectTransform.sizeDelta.x -134f*.1f, healthBar.rectTransform.sizeDelta.y);
 			}
 		}
 	}

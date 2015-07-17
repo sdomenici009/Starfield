@@ -38,7 +38,7 @@ public class Asteroid : MonoBehaviour {
 			}
 
 			ship.score++;
-			ship.scoreText.text = ship.score.ToString("D3");
+			//ship.scoreText.text = ship.score.ToString("D3");
 			Destroy(gameObject);
 		}
 	}
