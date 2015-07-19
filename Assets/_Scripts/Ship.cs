@@ -19,14 +19,6 @@ public class Ship : MonoBehaviour
 	[SerializeField]
 	private float bulletSpeed;
 
-	private Rigidbody rigidbody;
-
-	[SerializeField]
-	private ParticleSystem clouds;
-
-	[SerializeField]
-	private ParticleSystem stars;
-
 	[SerializeField]
 	private Image healthBar;
 
@@ -44,14 +36,13 @@ public class Ship : MonoBehaviour
 	private AudioClip damagedClip;
 
 	[SerializeField]
-	private Game_Controller gc;
+	private GameManager gc;
 
 	[SerializeField]
 	private Cardboard cardboard;
 
 	void Start()
 	{
-		rigidbody = GetComponent<Rigidbody>();
 	}
 	
 	void Update()
@@ -65,8 +56,8 @@ public class Ship : MonoBehaviour
 
 		if(Input.GetMouseButtonDown(0) || cardboard.Triggered)
 		{
-			GameObject bullet = (GameObject)Instantiate(bulletPrefab, cardboard.gameObject.transform.GetChild(0).position + cardboard.gameObject.transform.GetChild(0).forward*.25f, bulletInitialRotation);
-			bullet.GetComponent<Rigidbody>().AddForce(cardboard.gameObject.transform.GetChild(0).forward*bulletSpeed);
+			GameObject bullet = (GameObject)Instantiate(bulletPrefab, cardboard.gameObject.transform.GetChild(0).position + new Vector3(0, -.15f, 0) + cardboard.gameObject.transform.GetChild(0).forward*.5f, bulletInitialRotation);
+			bullet.GetComponent<Rigidbody>().AddForce(cardboard.gameObject.transform.GetChild(0).forward*bulletSpeed - bullet.transform.position);
 			bullet.transform.rotation = cardboard.HeadPose.Orientation;
 			AudioSource.PlayClipAtPoint(bulletAudioClip, transform.position, .75f);
 			Destroy(bullet, bulletLifetime);

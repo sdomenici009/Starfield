@@ -23,10 +23,10 @@ public class Enemy_Controller : MonoBehaviour {
 
 		for(int i = (int)ship.transform.position.z; i < transform.position.z; i++)
 		{
-			for(int j=0; j < 10; j++)
-			{
+			//for(int j=0; j < 10; j++)
+			//{
 				SpawnAsteroid(new Vector3(0, 0, i));
-			}
+			//}
 		}
 	}
 	
