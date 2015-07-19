@@ -5,12 +5,10 @@ public class Lazer : MonoBehaviour {
 
 	private ParticleSystem bulletExplosionParticleSystem;
 
-	// Use this for initialization
 	void Start () {
 		bulletExplosionParticleSystem = GameObject.Find("BulletPS").GetComponent<ParticleSystem>();
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	
 	}

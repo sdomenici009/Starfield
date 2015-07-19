@@ -17,31 +17,24 @@ public class Enemy_Controller : MonoBehaviour {
 
 	GameObject ship;
 
-	// Use this for initialization
 	void Start () {
 		ship = GameObject.Find("Ship");
 		enemySpawnTimer = initialEnemySpawnTimer;
 
-		for(int i=0; i < 10; i++)
+		for(int i = (int)ship.transform.position.z; i < transform.position.z; i++)
 		{
-			GameObject enemy = (GameObject)Instantiate(enemyPrefab[Random.Range(0, 4)], transform.position + Random.onUnitSphere*2f, Random.rotation);
-			//float randomScalar = Random.Range(0.01f, 0.05f);
-			//enemy.transform.localScale = Vector3.one*.05f;//*randomScalar;
-			enemy.GetComponent<Rigidbody>().mass = 100*.05f;// * randomScalar/.05f;
-			enemy.GetComponent<Asteroid>().health = (int)(enemy.GetComponent<Rigidbody>().mass/20);
-			enemy.GetComponent<Rigidbody>().AddForce(0, 0, Random.Range(-35, -105)*enemy.GetComponent<Rigidbody>().mass);
+			for(int j=0; j < 10; j++)
+			{
+				SpawnAsteroid(new Vector3(0, 0, i));
+			}
 		}
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		increaseSpawnRateTimer -= Time.deltaTime;
 
 		if(increaseSpawnRateTimer < 0)
 		{
-			if(initialEnemySpawnTimer >= .1f)
-				//initialEnemySpawnTimer -= .05f;
-
 			increaseSpawnRateTimer = initialIncreaseSpawnRate;
 		}
 
@@ -49,14 +42,20 @@ public class Enemy_Controller : MonoBehaviour {
 
 		if(enemySpawnTimer < 0 && ship != null)
 		{
-			GameObject enemy = (GameObject)Instantiate(enemyPrefab[Random.Range(0, 4)], transform.position + Random.onUnitSphere*2f, Random.rotation);
-			//float randomScalar = Random.Range(0.01f, 0.05f);
-			//enemy.transform.localScale = Vector3.one*.05f;//*randomScalar;
-			enemy.GetComponent<Rigidbody>().mass = 100*.05f;// * randomScalar/.05f;
-			enemy.GetComponent<Asteroid>().health = (int)(enemy.GetComponent<Rigidbody>().mass/20);
-			enemy.GetComponent<Rigidbody>().AddForce(0, 0, Random.Range(-35, -105)*enemy.GetComponent<Rigidbody>().mass);
+			GameObject enemy = SpawnAsteroid(transform.position);
+			enemy.transform.localScale = Vector3.zero;
+			iTween.ScaleTo(enemy, iTween.Hash("scale", new Vector3(0.05f, 0.05f, 0.05f), "time", 10f, "easetype", "easeinexpo"));
 
 			enemySpawnTimer = initialEnemySpawnTimer;
 		}
+	}
+
+	GameObject SpawnAsteroid(Vector3 spawnPosition)
+	{
+		GameObject enemy = (GameObject)Instantiate(enemyPrefab[Random.Range(0, 4)], spawnPosition + Random.onUnitSphere*2f, Random.rotation);
+		enemy.GetComponent<Rigidbody>().mass = 40;
+		enemy.GetComponent<Asteroid>().health = Random.Range(1, 4);
+		enemy.GetComponent<Rigidbody>().AddForce(0, 0, Random.Range(-35, -105)*40f);
+		return enemy;
 	}
 }

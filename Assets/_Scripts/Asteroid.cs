@@ -7,16 +7,16 @@ public class Asteroid : MonoBehaviour {
 
 	ParticleSystem asteroidDeath;
 	Rigidbody rigidbody;
-	Ship_Controller ship;
+	Ship ship;
 
-	// Use this for initialization
 	void Start () {
 		asteroidDeath = GameObject.Find("AsteroidDeath").GetComponent<ParticleSystem>();
-		ship = GameObject.Find("Ship").GetComponent<Ship_Controller>();
+		ship = GameObject.Find("Ship").GetComponent<Ship>();
 		rigidbody = GetComponent<Rigidbody>();
+
+		rigidbody.AddTorque(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)));
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if(transform.position.z < -10f)
 			Destroy(gameObject);
@@ -31,14 +31,14 @@ public class Asteroid : MonoBehaviour {
 
 		if(health < 0)
 		{
-			for(int i=0; i < rigidbody.mass/8; i++)
+			for(int i=0; i < 10; i++)
 			{
 				asteroidDeath.transform.position = transform.position + Random.onUnitSphere*.125f;
 				asteroidDeath.Emit(30);
 			}
 
 			ship.score++;
-			//ship.scoreText.text = ship.score.ToString("D3");
+			ship.scoreText.text = ship.score.ToString("D3");
 			Destroy(gameObject);
 		}
 	}

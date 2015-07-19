@@ -2,16 +2,11 @@
 using System.Collections;
 
 public class Game_Controller : MonoBehaviour {
-
-	[SerializeField]
-	private GameObject resetPanel;
-
-	// Use this for initialization
-	void Start () {
 	
+	void Start () {
+		Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
 	}
 	
-	// Update is called once per frame
 	void Update () {
 	}
 
@@ -20,7 +15,6 @@ public class Game_Controller : MonoBehaviour {
 		yield return new WaitForSeconds(1f);
 
 		ResetGame();
-		//resetPanel.SetActive(true);
 	}
 
 	public void ResetGame()
