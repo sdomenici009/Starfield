@@ -18,7 +18,7 @@ public class Enemy_Controller : MonoBehaviour {
 	GameObject ship;
 
 	void Start () {
-		ship = GameObject.Find("Ship");
+		ship = GameObject.Find("Player");
 		enemySpawnTimer = initialEnemySpawnTimer;
 
 		for(int i = (int)ship.transform.position.z; i < transform.position.z; i++)
@@ -54,8 +54,8 @@ public class Enemy_Controller : MonoBehaviour {
 	{
 		GameObject enemy = (GameObject)Instantiate(enemyPrefab[Random.Range(0, 4)], spawnPosition + Random.onUnitSphere*2f, Random.rotation);
 		enemy.GetComponent<Rigidbody>().mass = 40;
-		enemy.GetComponent<Asteroid>().health = Random.Range(1, 4);
-		enemy.GetComponent<Rigidbody>().AddForce(0, 0, Random.Range(-35, -105)*40f);
+		//enemy.GetComponent<Asteroid>().health = Random.Range(1, 4);
+		enemy.GetComponent<Rigidbody>().AddForce(0, 0, Random.Range(-3.5f, -10.5f)*160f);
 		return enemy;
 	}
 }

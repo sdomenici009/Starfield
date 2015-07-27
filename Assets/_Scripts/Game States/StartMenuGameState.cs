@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StartMenu : GameState {
+public class StartMenuGameState : GameState {
 
-	public StartMenu()
+	public StartMenuGameState()
 	{
 
 	}

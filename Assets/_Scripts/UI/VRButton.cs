@@ -7,7 +7,7 @@ public class VRButton : MonoBehaviour {
 
 	void Start()
 	{
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+		gameManager = GameManager.instance;
 	}
 
 	void OnCollisionEnter(Collision collision)
