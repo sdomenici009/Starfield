@@ -14,7 +14,7 @@ public class Asteroid : Enemy {
 	}
 	
 	void Update () {
-		if(transform.position.z < -10f)
+		if(transform.position.z < -25f)
 			Destroy(gameObject);
 	}
 

@@ -44,7 +44,7 @@ public class Enemy_Controller : MonoBehaviour {
 		{
 			GameObject enemy = SpawnAsteroid(transform.position);
 			enemy.transform.localScale = Vector3.zero;
-			iTween.ScaleTo(enemy, iTween.Hash("scale", new Vector3(0.05f, 0.05f, 0.05f), "time", 10f, "easetype", "easeinexpo"));
+			iTween.ScaleTo(enemy, iTween.Hash("scale", new Vector3(0.04f, 0.04f, 0.04f), "time", 10f, "easetype", "easeinexpo"));
 
 			enemySpawnTimer = initialEnemySpawnTimer;
 		}

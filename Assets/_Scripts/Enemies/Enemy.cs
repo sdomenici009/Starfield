@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Enemy : Actor {
 
+	public Wave parentWave;
+
 	protected ParticleSystem onDeathParticleSystem;
 	
 	[SerializeField]
@@ -10,6 +12,10 @@ public class Enemy : Actor {
 	
 	[SerializeField]
 	protected float speed;
+	public float Speed
+	{
+		get { return speed; }
+	}
 
 	[SerializeField]
 	protected int health;
@@ -32,6 +38,11 @@ public class Enemy : Actor {
 		if(collision.collider.tag == "PlayerProjectile")
 		{
 			health--;
+
+			if(health < 0)
+			{
+				parentWave.enemies.Remove(this);
+			}
 		}
 	}
 }

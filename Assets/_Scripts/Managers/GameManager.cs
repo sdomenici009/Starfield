@@ -32,8 +32,9 @@ public class GameManager : MonoBehaviour {
 		get { return player; }
 	}
 
-	private Level currentLevel;
 	private List<Level> levels = new List<Level>();
+	private Level currentLevel;
+	private int levelIndex = 0;
 
 	void Start () {
 		for(int i=0; i < transform.childCount; i++)
@@ -44,12 +45,44 @@ public class GameManager : MonoBehaviour {
 		if(levels.Count > 0) currentLevel = levels[0];
 		else Debug.LogError("Where did you put the levels, ya dope?");
 
+		currentLevel.OnLevelStart();
+
 		currentState = startMenu;
 		Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
 	}
 	
 	void Update () {
 		currentState.Execute();
+
+		if(levels.Count > levelIndex)
+		{
+			currentLevel.currentWave.maximumWaveTime -= Time.deltaTime;
+
+			if(currentLevel.currentWave.enemies.Count == 0 ||
+			   currentLevel.currentWave.maximumWaveTime <= 0)
+			{
+				currentLevel.currentWave.OnWaveEnd();
+				
+				currentLevel.waveIndex++;
+				if(currentLevel.waves.Count > currentLevel.waveIndex)
+				{
+					currentLevel.currentWave = currentLevel.waves[currentLevel.waveIndex];
+					currentLevel.currentWave.OnWaveStart();
+				}
+				else
+				{
+					currentLevel.OnLevelEnd();
+					levelIndex++;
+
+					/*
+					if(levels.Count > levelIndex)
+					{
+						currentLevel = levels[levelIndex];
+						currentLevel.OnLevelStart();
+					}*/
+				}
+			}
+		}
 	}
 
 	IEnumerator EndGameScreen()
