@@ -32,7 +32,8 @@ public class Projectile : MonoBehaviour {
 	
 	void OnCollisionEnter(Collision collision)
 	{
-		if(collision.collider.tag == "Meteor")
+		if(collision.collider.tag == "Enemy" || 
+		   collision.collider.tag == "EnemyProjectile")
 		{
 			Destroy(gameObject);
 			int rand = Random.Range(20, 40);

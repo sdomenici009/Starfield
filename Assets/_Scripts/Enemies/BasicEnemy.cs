@@ -42,6 +42,13 @@ public class BasicEnemy : Enemy {
 			StateTransition(attacking);
 		}
 
+		//
+
+		if(parentWave.waveTimer < 0)
+		{
+			StateTransition(leaving);
+		}
+
 		/*
 		randomPositionTimer -= Time.deltaTime;
 

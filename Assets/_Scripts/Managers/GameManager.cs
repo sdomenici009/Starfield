@@ -56,10 +56,10 @@ public class GameManager : MonoBehaviour {
 
 		if(levels.Count > levelIndex)
 		{
-			currentLevel.currentWave.maximumWaveTime -= Time.deltaTime;
+			currentLevel.currentWave.waveTimer -= Time.deltaTime;
 
 			if(currentLevel.currentWave.enemies.Count == 0 ||
-			   currentLevel.currentWave.maximumWaveTime <= 0)
+			   currentLevel.currentWave.waveTimer <= 0)
 			{
 				currentLevel.currentWave.OnWaveEnd();
 				

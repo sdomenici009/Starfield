@@ -6,7 +6,14 @@ public class Enemy : Actor {
 	public Wave parentWave;
 
 	protected ParticleSystem onDeathParticleSystem;
-	
+
+	[SerializeField]
+	protected GameObject projectile;
+	public GameObject Projectile
+	{
+		get { return projectile; }
+	}
+
 	[SerializeField]
 	protected float lifetime;
 	

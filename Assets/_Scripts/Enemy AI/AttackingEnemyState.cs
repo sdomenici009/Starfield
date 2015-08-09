@@ -18,7 +18,7 @@ public class AttackingEnemyState : EnemyState {
 		this.enemy = enemy;
 		enemyRigidbody = enemy.GetComponent<Rigidbody>();
 		this.player = player;
-		randomMoveDelay = Random.Range(.25f, 2f);
+		randomMoveDelay = Random.Range(1f, 2f);
 	}
 	
 	public override void StartState() 
@@ -31,7 +31,14 @@ public class AttackingEnemyState : EnemyState {
 	{
 		moveTimer -= Time.deltaTime;
 
-		enemyRigidbody.AddForce((targetPosition - enemy.transform.position).normalized*enemy.Speed/2f, ForceMode.Acceleration);
+		if(moveTimer < initialMoveTimer)
+		{
+			Vector3 targetDirection = new Vector3(Mathf.Clamp(targetPosition.x - enemy.transform.position.x, -1f, 1f),
+			                                      Mathf.Clamp(targetPosition.y - enemy.transform.position.y, -1f, 1f),
+			                                      Mathf.Clamp(targetPosition.z - enemy.transform.position.z, -1f, 1f));
+
+			enemyRigidbody.AddForce((targetDirection)*enemy.Speed/3f, ForceMode.Acceleration);
+		}
 
 		if(moveTimer < 0)
 		{
@@ -39,12 +46,13 @@ public class AttackingEnemyState : EnemyState {
 
 			if(Random.Range(0, 2) == 0)
 			{
-				moveTimer = initialMoveTimer;
+				moveTimer = initialMoveTimer + randomMoveDelay;
+				randomMoveDelay = Random.Range(2f, 3f);
 			}
 			else
 			{	
-				moveTimer = initialMoveTimer + randomMoveDelay;
-				randomMoveDelay = Random.Range(.25f, 2f);
+				GameObject.Instantiate(enemy.Projectile, enemy.transform.position + enemy.transform.forward*.7f, Quaternion.identity);
+				moveTimer = initialMoveTimer;
 			}
 		}
 	}

@@ -7,8 +7,8 @@ public class Wave : MonoBehaviour {
 	[SerializeField]
 	private float waveDelay;
 
-	public float maximumWaveTime;
-	
+	public float waveTimer;
+
 	public List<Enemy> enemies = new List<Enemy>();
 	public List<PowerUp> powerUps = new List<PowerUp>();
 	
