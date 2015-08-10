@@ -46,9 +46,10 @@ public class Enemy : Actor {
 		{
 			health--;
 
-			if(health < 0)
+			if(health <= 0)
 			{
-				parentWave.enemies.Remove(this);
+				parentWave.enemies.Remove(this.GetComponent<Enemy>());
+				scoreManager.Add(scoreValue);
 			}
 		}
 	}

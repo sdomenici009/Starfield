@@ -9,15 +9,18 @@ public class Wave : MonoBehaviour {
 
 	public float waveTimer;
 
+	public List<Enemy> enemyPrefabs = new List<Enemy>();
+
 	public List<Enemy> enemies = new List<Enemy>();
 	public List<PowerUp> powerUps = new List<PowerUp>();
 	
 	public void OnWaveStart()
 	{
 		Debug.Log ("OnWaveStart");
-		for(int i=0; i < enemies.Count; i++)
+		for(int i=0; i < enemyPrefabs.Count; i++)
 		{
-			GameObject enemy = (GameObject)Instantiate(enemies[i].gameObject, new Vector3(0, 0, 35), Quaternion.identity);
+			GameObject enemy = (GameObject)Instantiate(enemyPrefabs[i].gameObject, new Vector3(0, 0, 35), Quaternion.identity);
+			enemies.Add(enemy.GetComponent<Enemy>());
 			enemy.GetComponent<Enemy>().parentWave = this;
 		}
 	}

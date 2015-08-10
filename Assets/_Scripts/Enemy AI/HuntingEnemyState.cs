@@ -21,6 +21,7 @@ public class HuntingEnemyState : EnemyState {
 	
 	public override void Execute() 
 	{
+		enemy.transform.LookAt(player.transform);
 		enemyRigidbody.AddForce((player.transform.position - enemy.transform.position).normalized*enemy.Speed, ForceMode.Acceleration);
 	}
 	

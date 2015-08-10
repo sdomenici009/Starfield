@@ -29,6 +29,8 @@ public class AttackingEnemyState : EnemyState {
 	
 	public override void Execute() 
 	{
+		enemy.transform.LookAt(player.transform);
+
 		moveTimer -= Time.deltaTime;
 
 		if(moveTimer < initialMoveTimer)

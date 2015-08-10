@@ -27,14 +27,9 @@ public class BasicEnemy : Enemy {
 
 		currentState = hunting;
 		currentState.StartState();
-		//target = gameManager.Player.transform;
-		//randomPositionTimer = randomPositionInitialTimer;
-		//randomPositionInFrontOfPlayer = target.position + new Vector3(Random.Range(-1.75f, 1.75f), Random.Range(-1.75f, 1.75f), 3f);
 	}
 	
 	void Update () {
-		transform.LookAt(player.transform);
-
 		currentState.Execute();
 
 		if(currentState == hunting && Mathf.Abs(transform.position.z - player.transform.position.z) < 5)
@@ -42,45 +37,12 @@ public class BasicEnemy : Enemy {
 			StateTransition(attacking);
 		}
 
-		//
-
 		if(parentWave.waveTimer < 0)
 		{
 			StateTransition(leaving);
 		}
 
-		/*
-		randomPositionTimer -= Time.deltaTime;
-
-		transform.LookAt(target);
-
-		if(Mathf.Abs(transform.position.z - target.position.z) < 10)
-		{
-			if(!inRange)
-			{
-				randomPositionTimer = randomPositionInitialTimer;
-				rigidbody.AddForce((transform.position - target.position)*speed);
-				inRange = true;
-			}
-
-			if(randomPositionTimer < 0)
-			{
-				randomPositionInFrontOfPlayer = target.position + new Vector3(Random.Range(-1.75f, 1.75f), Random.Range(-1.75f, 1.75f), 3f);
-				randomPositionTimer = randomPositionInitialTimer;
-
-				rigidbody.AddForce((randomPositionInFrontOfPlayer - transform.position)*speed);
-			}
-		}
-		else
-		{
-			if(randomPositionTimer < 0)
-			{
-				rigidbody.AddForce((target.position - transform.position)*speed);
-				randomPositionTimer = 7.5f;
-			}
-		}*/
-
-		if(health < 0)
+		if(health <= 0)
 		{
 			scoreManager.Add(5);
 			Destroy(gameObject);
