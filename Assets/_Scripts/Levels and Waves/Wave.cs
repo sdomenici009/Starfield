@@ -10,7 +10,6 @@ public class Wave : MonoBehaviour {
 	public float waveTimer;
 
 	public List<Enemy> enemyPrefabs = new List<Enemy>();
-
 	public List<Enemy> enemies = new List<Enemy>();
 	public List<PowerUp> powerUps = new List<PowerUp>();
 	

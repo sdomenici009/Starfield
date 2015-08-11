@@ -3,13 +3,6 @@ using System.Collections;
 
 public class BasicEnemy : Enemy {
 
-	//Transform target;
-	//float randomPositionInitialTimer = 1.25f;
-	//float randomPositionTimer;
-	//Vector3 randomPositionInFrontOfPlayer;
-
-	//bool inRange = false;
-
 	private EnemyState currentState;
 
 	private HuntingEnemyState hunting;
@@ -40,12 +33,6 @@ public class BasicEnemy : Enemy {
 		if(parentWave.waveTimer < 0)
 		{
 			StateTransition(leaving);
-		}
-
-		if(health <= 0)
-		{
-			scoreManager.Add(5);
-			Destroy(gameObject);
 		}
 	}
 

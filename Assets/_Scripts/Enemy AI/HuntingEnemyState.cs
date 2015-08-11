@@ -27,7 +27,7 @@ public class HuntingEnemyState : EnemyState {
 	
 	public override void EndState() 
 	{
-		enemyRigidbody.velocity = Vector3.zero;
-		enemyRigidbody.angularVelocity = Vector3.zero; 
+		enemyRigidbody.AddForce(-enemyRigidbody.velocity/1.5f, ForceMode.VelocityChange); //= Vector3.zero;
+		//enemyRigidbody.angularVelocity = Vector3.zero; 
 	}
 }

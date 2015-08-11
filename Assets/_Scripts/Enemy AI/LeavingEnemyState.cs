@@ -14,7 +14,17 @@ public class LeavingEnemyState : EnemyState {
 		this.player = player;
 	}
 	
-	public override void StartState() {}
+	public override void StartState() 
+	{
+		if(enemy.transform.position.x < player.transform.position.x)
+		{
+			enemyRigidbody.AddForce(new Vector3(-5, 0, 0));
+		}
+		else
+		{
+			enemyRigidbody.AddForce(new Vector3(5, 0, 0));
+		}
+	}
 	
 	public override void Execute() 
 	{

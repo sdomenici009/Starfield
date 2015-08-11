@@ -36,6 +36,8 @@ public class Enemy : Actor {
 		base.Awake();
 		rigidbody = GetComponent<Rigidbody>();
 	}
+
+	bool dead = false;
 	
 	void Update () {
 	}
@@ -46,10 +48,12 @@ public class Enemy : Actor {
 		{
 			health--;
 
-			if(health <= 0)
+			if(!dead && health <= 0)
 			{
+				dead = true;
 				parentWave.enemies.Remove(this.GetComponent<Enemy>());
 				scoreManager.Add(scoreValue);
+				Destroy(gameObject);
 			}
 		}
 	}
