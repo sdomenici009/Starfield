@@ -18,7 +18,7 @@ public class Wave : MonoBehaviour {
 		Debug.Log ("OnWaveStart");
 		for(int i=0; i < enemyPrefabs.Count; i++)
 		{
-			GameObject enemy = (GameObject)Instantiate(enemyPrefabs[i].gameObject, new Vector3(0, 0, 35), Quaternion.identity);
+			GameObject enemy = (GameObject)Instantiate(enemyPrefabs[i].gameObject, new Vector3(0, 0, 35 + i*2f), Quaternion.identity);
 			enemies.Add(enemy.GetComponent<Enemy>());
 			enemy.GetComponent<Enemy>().parentWave = this;
 		}
