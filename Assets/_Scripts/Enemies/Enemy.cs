@@ -51,7 +51,7 @@ public class Enemy : Actor {
 			if(!dead && health <= 0)
 			{
 				dead = true;
-				parentWave.enemies.Remove(this.GetComponent<Enemy>());
+				parentWave.enemies.Remove(this.gameObject);
 				scoreManager.Add(scoreValue);
 				Destroy(gameObject);
 			}

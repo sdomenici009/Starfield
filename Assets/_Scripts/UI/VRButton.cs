@@ -12,12 +12,9 @@ public class VRButton : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if(gameManager.CurrentState == gameManager.startMenu)
+		if(collision.collider.tag == "PlayerProjectile")
 		{
-			if(collision.collider.tag == "Lazer")
-			{
-				OnHit();
-			}
+			OnHit();
 		}
 	}
 

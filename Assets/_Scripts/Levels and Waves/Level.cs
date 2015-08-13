@@ -16,10 +16,14 @@ public class Level : MonoBehaviour {
 	public void OnLevelStart()
 	{
 		Debug.Log("OnLevelStart");
+		waveIndex = 0;
 
-		for(int i=0; i < transform.childCount; i++)
+		if(waves.Count == 0)
 		{
-			waves.Add(transform.GetChild(i).GetComponent<Wave>());
+			for(int i=0; i < transform.childCount; i++)
+			{
+				waves.Add(transform.GetChild(i).GetComponent<Wave>());
+			}
 		}
 		
 		if(waves.Count > 0) currentWave = waves[0];

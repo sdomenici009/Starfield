@@ -15,7 +15,10 @@ public class GameManager : MonoBehaviour {
 			return _instance;
 		}
 	}
-	
+
+	[SerializeField]
+	private GameObject levelTransitionCanvas;
+
 	public GameState startMenu = new StartMenuGameState();
 	public GameState startMenu2 = new StartMenuGameState();
 
@@ -36,6 +39,8 @@ public class GameManager : MonoBehaviour {
 	private Level currentLevel;
 	private int levelIndex = 0;
 
+	bool betweenLevels = false;
+
 	void Start () {
 		for(int i=0; i < transform.childCount; i++)
 		{
@@ -54,7 +59,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		currentState.Execute();
 
-		if(levels.Count > levelIndex)
+		if(levels.Count > levelIndex && !betweenLevels)
 		{
 			currentLevel.currentWave.waveTimer -= Time.deltaTime;
 
@@ -71,8 +76,7 @@ public class GameManager : MonoBehaviour {
 				}
 				else
 				{
-					currentLevel.OnLevelEnd();
-					levelIndex++;
+					betweenLevels = true;
 
 					/*
 					if(levels.Count > levelIndex)
@@ -83,6 +87,33 @@ public class GameManager : MonoBehaviour {
 				}
 			}
 		}
+		else
+		{
+			if(!levelTransitionCanvas.activeInHierarchy)
+			{
+				currentLevel.OnLevelEnd();
+				levelTransitionCanvas.SetActive(true);
+			}
+		}
+	}
+
+	public void RetryLevel()
+	{
+		currentLevel.OnLevelStart();
+		betweenLevels = false;
+	}
+
+	public void NextLevel()
+	{
+		levelIndex++;
+		currentLevel = levels[levelIndex];
+		currentLevel.OnLevelStart();
+		betweenLevels = false;
+	}
+
+	public void ReturnHome()
+	{
+		betweenLevels = false;
 	}
 
 	IEnumerator EndGameScreen()
