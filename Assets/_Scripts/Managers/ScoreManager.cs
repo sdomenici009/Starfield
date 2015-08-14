@@ -21,10 +21,13 @@ public class ScoreManager : MonoBehaviour {
 
 	private int score = 0;
 
+	[SerializeField]
+	private Text endOfLevelScore;
+
 	public void Add(int value)
 	{
 		score += value;
 		scoreText.text = score.ToString("D3");
+		endOfLevelScore.text = "Score: " + score.ToString();
 	}
-
 }

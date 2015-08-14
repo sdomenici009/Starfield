@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class NextLevelButton : VRButton {
-	
+
 	public override void OnHit ()
 	{
 		gameManager.NextLevel();

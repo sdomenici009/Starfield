@@ -5,6 +5,9 @@ public class VRButton : MonoBehaviour {
 
 	protected GameManager gameManager;
 
+	private float initialClickDelayTimer = 1f;
+	private float clickDelayTimer = 0;
+
 	void Start()
 	{
 		gameManager = GameManager.instance;
@@ -12,9 +15,13 @@ public class VRButton : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if(collision.collider.tag == "PlayerProjectile")
+		if(clickDelayTimer <= 0)
 		{
-			OnHit();
+			if(collision.collider.tag == "PlayerProjectile")
+			{
+				OnHit();
+				clickDelayTimer = initialClickDelayTimer;
+			}
 		}
 	}
 
