@@ -37,6 +37,13 @@ public class Enemy : Actor {
 		rigidbody = GetComponent<Rigidbody>();
 	}
 
+	[SerializeField]
+	private int collisionDamage;
+	public int CollisionDamage
+	{
+		get { return collisionDamage; }
+	}
+
 	bool dead = false;
 	
 	void Update () {

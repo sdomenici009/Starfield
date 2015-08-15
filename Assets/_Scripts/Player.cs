@@ -50,13 +50,25 @@ public class Player : Actor
 
 	void OnCollisionEnter(Collision collision)
 	{
-		if(collision.collider.tag == "Enemy" || collision.collider.tag == "EnemyProjectile")
+		if(collision.collider.tag == "Enemy")
 		{
 			if(damageDelayTimer < 0)
 			{
 				AudioSource.PlayClipAtPoint(damagedClip, transform.position, .75f);
 				damageDelayTimer = initialDamageDelayTime;
-				currentHealth -= 10;
+				currentHealth -= collision.collider.GetComponent<Enemy>().CollisionDamage;
+				healthBar.rectTransform.anchoredPosition = new Vector2(healthBar.rectTransform.anchoredPosition.x -(200f*.2f)/2f, healthBar.rectTransform.anchoredPosition.y);
+				healthBar.rectTransform.sizeDelta = new Vector2(healthBar.rectTransform.sizeDelta.x -200f*.2f, healthBar.rectTransform.sizeDelta.y);
+			}
+		}
+
+		if(collision.collider.tag == "EnemyProjectile")
+		{
+			if(damageDelayTimer < 0)
+			{
+				AudioSource.PlayClipAtPoint(damagedClip, transform.position, .75f);
+				damageDelayTimer = initialDamageDelayTime;
+				currentHealth -= collision.collider.GetComponent<EnemyProjectile>().Damage;
 				healthBar.rectTransform.anchoredPosition = new Vector2(healthBar.rectTransform.anchoredPosition.x -(200f*.2f)/2f, healthBar.rectTransform.anchoredPosition.y);
 				healthBar.rectTransform.sizeDelta = new Vector2(healthBar.rectTransform.sizeDelta.x -200f*.2f, healthBar.rectTransform.sizeDelta.y);
 			}

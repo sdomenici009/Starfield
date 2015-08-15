@@ -7,11 +7,18 @@ public class EnemyProjectile : MonoBehaviour {
 	private float speed;
 
 	[SerializeField]
-	private float health;
+	private int health;
 
 	private Player player;
 
 	private Rigidbody rigidbody;
+
+	[SerializeField]
+	private int damage;
+	public int Damage
+	{
+		get { return damage; }
+	}
 
 	void Awake () {
 		player = GameManager.instance.Player;
