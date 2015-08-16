@@ -6,8 +6,6 @@ public class Asteroid : Enemy {
 	protected override void Awake () {
 		base.Awake();
 
-		onDeathParticleSystem = GameObject.Find("AsteroidDeath").GetComponent<ParticleSystem>();
-
 		rigidbody.AddTorque(new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), Random.Range(-1f, 1f)));
 
 		health = Random.Range(1, 4);

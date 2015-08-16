@@ -34,6 +34,8 @@ public class Enemy : Actor {
 
 	protected override void Awake () {
 		base.Awake();
+		onDeathParticleSystem = GameObject.Find("AsteroidDeath").GetComponent<ParticleSystem>();
+
 		rigidbody = GetComponent<Rigidbody>();
 	}
 
@@ -57,6 +59,14 @@ public class Enemy : Actor {
 
 			if(!dead && health <= 0)
 			{
+				onDeathParticleSystem = GameObject.Find("AsteroidDeath").GetComponent<ParticleSystem>();
+
+				for(int i=0; i < 10; i++)
+				{
+					onDeathParticleSystem.transform.position = transform.position + Random.onUnitSphere*.125f;
+					onDeathParticleSystem.Emit(30);
+				}
+
 				dead = true;
 				parentWave.enemies.Remove(this.gameObject);
 				scoreManager.Add(scoreValue);

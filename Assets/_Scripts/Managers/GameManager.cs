@@ -17,10 +17,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	[SerializeField]
+	private GameObject homeCanvas;
+
+	[SerializeField]
 	private GameObject levelTransitionCanvas;
 
-	public GameState startMenu = new StartMenuGameState();
-	public GameState startMenu2 = new StartMenuGameState();
+	public GameState home = new StartMenuGameState();
+	public GameState inGame = new InGameGameState();
 
 	private GameState currentState;
 	public GameState CurrentState
@@ -52,47 +55,45 @@ public class GameManager : MonoBehaviour {
 
 		currentLevel.OnLevelStart();
 
-		currentState = startMenu;
+		currentState = home;
 		Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
 	}
 	
 	void Update () {
 		currentState.Execute();
 
-		if(levels.Count > levelIndex && !betweenLevels)
+		if(currentState == inGame)
 		{
-			currentLevel.currentWave.waveTimer -= Time.deltaTime;
+			if(homeCanvas.activeInHierarchy) homeCanvas.SetActive(false);
 
-			if(currentLevel.currentWave.enemies.Count == 0 ||
-			   currentLevel.currentWave.waveTimer <= 0)
+			if(levels.Count > levelIndex && !betweenLevels)
 			{
-				currentLevel.currentWave.OnWaveEnd();
+				currentLevel.currentWave.waveTimer -= Time.deltaTime;
 				
-				currentLevel.waveIndex++;
-				if(currentLevel.waves.Count > currentLevel.waveIndex)
+				if(currentLevel.currentWave.enemies.Count == 0 ||
+				   currentLevel.currentWave.waveTimer <= 0)
 				{
-					currentLevel.currentWave = currentLevel.waves[currentLevel.waveIndex];
-					currentLevel.currentWave.OnWaveStart();
-				}
-				else
-				{
-					betweenLevels = true;
-
-					/*
-					if(levels.Count > levelIndex)
+					currentLevel.currentWave.OnWaveEnd();
+					
+					currentLevel.waveIndex++;
+					if(currentLevel.waves.Count > currentLevel.waveIndex)
 					{
-						currentLevel = levels[levelIndex];
-						currentLevel.OnLevelStart();
-					}*/
+						currentLevel.currentWave = currentLevel.waves[currentLevel.waveIndex];
+						currentLevel.currentWave.OnWaveStart();
+					}
+					else
+					{
+						betweenLevels = true;
+					}
 				}
 			}
-		}
-		else
-		{
-			if(!levelTransitionCanvas.activeInHierarchy)
+			else
 			{
-				currentLevel.OnLevelEnd();
-				levelTransitionCanvas.SetActive(true);
+				if(!levelTransitionCanvas.activeInHierarchy)
+				{
+					currentLevel.OnLevelEnd();
+					levelTransitionCanvas.SetActive(true);
+				}
 			}
 		}
 	}
@@ -113,6 +114,8 @@ public class GameManager : MonoBehaviour {
 
 	public void ReturnHome()
 	{
+		homeCanvas.SetActive(true);
+		StateTransition(home);
 		betweenLevels = false;
 	}
 
