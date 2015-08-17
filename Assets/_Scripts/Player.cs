@@ -13,6 +13,8 @@ public class Player : Actor
 	private int baseHealth = 50;
 	private int currentHealth = 50;
 
+	public Cursor cursor;
+
 	[SerializeField]
 	private float initialDamageDelayTime;
 	private float damageDelayTimer = 0f;
@@ -27,13 +29,23 @@ public class Player : Actor
 
 	private Vector3 bulletSpawnOffset = new Vector3(0, -.15f, 0);
 
+	private RaycastHit hit;
+
 	void Start()
 	{
 		head = cardboard.GetComponentInChildren<CardboardHead>().transform;
 	}
-	
+
 	void Update()
 	{
+		if(Physics.Raycast(head.position + head.forward*.5f + bulletSpawnOffset, head.forward, out hit, Mathf.Infinity))
+		{
+			if(gameManager.betweenLevels && hit.collider.gameObject.layer == 5)
+			{
+				cursor.target = hit.point;
+			}
+		}
+
 		if(currentHealth <= 0)
 		{
 			gameManager.StartCoroutine("EndGameScreen");

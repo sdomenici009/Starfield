@@ -8,7 +8,9 @@ public class InGameGameState : GameState {
 		
 	}
 	
-	public override void StartState() {}
+	public override void StartState() {
+		GameManager.instance.StartCurrentLevel();
+	}
 	
 	public override void Execute() 
 	{

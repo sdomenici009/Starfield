@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
 	private Level currentLevel;
 	private int levelIndex = 0;
 
-	bool betweenLevels = false;
+	public bool betweenLevels = true;
 
 	void Start () {
 		for(int i=0; i < transform.childCount; i++)
@@ -53,14 +53,29 @@ public class GameManager : MonoBehaviour {
 		if(levels.Count > 0) currentLevel = levels[0];
 		else Debug.LogError("Where did you put the levels, ya dope?");
 
-		currentLevel.OnLevelStart();
+		//currentLevel.OnLevelStart();
 
 		currentState = home;
 		Screen.sleepTimeout = (int)SleepTimeout.NeverSleep;
 	}
-	
+
+	public void StartCurrentLevel()
+	{
+		currentLevel.OnLevelStart();
+	}
+
 	void Update () {
 		currentState.Execute();
+
+		if(betweenLevels && !player.cursor.gameObject.activeInHierarchy)
+		{
+			player.cursor.gameObject.SetActive(true);
+		}
+
+		if(!betweenLevels && player.cursor.gameObject.activeInHierarchy)
+		{
+			player.cursor.gameObject.SetActive(false);
+		}
 
 		if(currentState == inGame)
 		{

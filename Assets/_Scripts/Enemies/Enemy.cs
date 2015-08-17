@@ -34,7 +34,7 @@ public class Enemy : Actor {
 
 	protected override void Awake () {
 		base.Awake();
-		onDeathParticleSystem = GameObject.Find("AsteroidDeath").GetComponent<ParticleSystem>();
+		onDeathParticleSystem = GameObject.Find("EnemyDeath").GetComponent<ParticleSystem>();
 
 		rigidbody = GetComponent<Rigidbody>();
 	}
@@ -57,10 +57,10 @@ public class Enemy : Actor {
 		{
 			health--;
 
+			Destroy(collision.gameObject);
+
 			if(!dead && health <= 0)
 			{
-				onDeathParticleSystem = GameObject.Find("AsteroidDeath").GetComponent<ParticleSystem>();
-
 				for(int i=0; i < 10; i++)
 				{
 					onDeathParticleSystem.transform.position = transform.position + Random.onUnitSphere*.125f;
@@ -68,7 +68,8 @@ public class Enemy : Actor {
 				}
 
 				dead = true;
-				parentWave.enemies.Remove(this.gameObject);
+				if(parentWave != null)
+					parentWave.enemies.Remove(this.gameObject);
 				scoreManager.Add(scoreValue);
 				Destroy(gameObject);
 			}
