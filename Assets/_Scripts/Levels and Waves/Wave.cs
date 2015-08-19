@@ -12,8 +12,14 @@ public class Wave : MonoBehaviour {
 
 	public float waveTimer;
 
-	public List<Enemy> enemyPrefabs = new List<Enemy>();
+	public List<Enemy> enemyPrefabs;
+
+	[HideInInspector]
 	public List<GameObject> enemies = new List<GameObject>();
+
+	public List<PowerUp> powerUpPrefabs;
+
+	[HideInInspector]
 	public List<GameObject> powerUps = new List<GameObject>();
 	
 	public void OnWaveStart()
@@ -46,6 +52,12 @@ public class Wave : MonoBehaviour {
 			GameObject enemy = (GameObject)Instantiate(enemyPrefabs[i].gameObject, new Vector3(0, 0, 35 + i*2f), Quaternion.identity);
 			enemies.Add(enemy);
 			enemy.GetComponent<Enemy>().parentWave = this;
+		}
+
+		for(int i=0; i < powerUpPrefabs.Count; i++)
+		{
+			GameObject powerUp = (GameObject)Instantiate(powerUpPrefabs[i].gameObject, new Vector3(0, 0, 35 + i*2f), Quaternion.identity);
+			powerUps.Add(powerUp);
 		}
 	}
 

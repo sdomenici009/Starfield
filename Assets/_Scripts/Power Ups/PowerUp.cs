@@ -14,6 +14,15 @@ public class PowerUp : Actor {
 		rigidbody = GetComponent<Rigidbody>();
 	}
 
+	void Start()
+	{
+		rigidbody.AddForce(0, 0, Random.Range(-3.5f, -10.5f)*120f);
+	}
+
+	public void Update()
+	{
+	}
+
 	void OnCollisionEnter(Collision collision)
 	{
 		if(collision.collider.tag == "PlayerProjectile")
@@ -22,8 +31,6 @@ public class PowerUp : Actor {
 
 			if(!captured)
 			{
-
-
 				for(int i=0; i < 10; i++)
 				{
 					onDeathParticleSystem.transform.position = transform.position + Random.onUnitSphere*.125f;
