@@ -42,5 +42,11 @@ public class PowerUp : Actor {
 				Destroy(gameObject);
 			}
 		}
+
+		if(collision.collider.tag == "Player")
+		{
+			captured = true;
+			Destroy (gameObject);
+		}
 	}
 }
