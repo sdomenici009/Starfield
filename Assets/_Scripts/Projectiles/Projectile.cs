@@ -2,9 +2,7 @@
 using System.Collections;
 
 public class Projectile : MonoBehaviour {
-
-	private ParticleSystem onCollisionParticleSystem;
-
+	
 	[SerializeField]
 	private AudioClip triggered;
 
@@ -13,6 +11,8 @@ public class Projectile : MonoBehaviour {
 
 	[SerializeField]
 	private float speed;
+
+	private ParticleSystem onCollisionParticleSystem;
 
 	private Rigidbody rigidbody;
 

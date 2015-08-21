@@ -50,4 +50,32 @@ public class FancyEnemy : Enemy {
 		currentState = newState;
 		currentState.StartState();
 	}
+
+	protected override void OnCollisionEnter(Collision collision)
+	{
+		if(collision.collider.tag == "PlayerProjectile")
+		{
+			if(!shield.activeInHierarchy)
+			{
+				health--;
+				
+				Destroy(collision.gameObject);
+				
+				if(!dead && health <= 0)
+				{
+					for(int i=0; i < 10; i++)
+					{
+						onDeathParticleSystem.transform.position = transform.position + Random.onUnitSphere*.125f;
+						onDeathParticleSystem.Emit(30);
+					}
+					
+					dead = true;
+					if(parentWave != null)
+						parentWave.enemies.Remove(this.gameObject);
+					scoreManager.Add(scoreValue);
+					Destroy(gameObject);
+				}
+			}
+		}
+	}
 }

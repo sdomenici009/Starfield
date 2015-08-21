@@ -46,12 +46,12 @@ public class Enemy : Actor {
 		get { return collisionDamage; }
 	}
 
-	bool dead = false;
+	protected bool dead = false;
 	
 	void Update () {
 	}
 
-	void OnCollisionEnter(Collision collision)
+	protected virtual void OnCollisionEnter(Collision collision)
 	{
 		if(collision.collider.tag == "PlayerProjectile")
 		{
